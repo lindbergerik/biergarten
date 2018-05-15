@@ -29,7 +29,7 @@ var myStyles =[
 
 var map, infowindow;
 function initMap() {
-	map = new google.maps.Map(document.getElementById('map'), {
+	map = new google.maps.Map(document.getElementById("mapDiv"), {
 		center: {lat: 59.336559, lng: 18.062660},
 		zoom: 11,
 		// mapTypeId: 'satellite',
