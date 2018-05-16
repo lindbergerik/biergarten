@@ -39,13 +39,30 @@ function initMap() {
 		disableDefaultUI: true,
 		styles: myStyles
 	});
-	let chosen;
+	let chosen = false;
 	let markers = [];
 	let contents = [];
 	let infoWindows = [];
 	for (var i=0; i<parks.length; i++){
+		var icon = {};
+		icon.scaledSize = new google.maps.Size(2, 2)
+		icon.origin = new google.maps.Point(0,0)
+		icon.anchor = new google.maps.Point(0,0)
+
+		if (parks[i].drink === 'Never'){
+			icon.url = './img/drink_no.png'
+		}
+		else if (parks[i].drink === 'Always'){
+			icon.url = './img/drink.png'
+		}
+		else{
+			icon.url = './img/drink_time.png'
+		}
+
 		markers[i] = new google.maps.Marker({
 			position: {lat: parks[i].lat, lng: parks[i].lng},
+			icon: icon.url,
+			//scaledSize: new google.maps.Size(25, 25),
 			map: map,
 			draggable: false,
 			animation: google.maps.Animation.DROP,
@@ -57,18 +74,22 @@ function initMap() {
 	infoWindows[i] = new google.maps.InfoWindow({
 		content: contents[i],
 		maxWidth: 300
-	  });
+	});
+
 	google.maps.event.addListener(markers[i], 'click', function() {
-		if (chosen){
-			console.log()
-			if (markers[chosen].open){
-				infoWindows[chosen].close();
-				markers[chosen].open = false;
-			}
+		console.log(chosen);
+		if (chosen === false){
+			console.log('chosen '+ chosen)
+			infoWindows[this.index].open(map, markers[this.index]);
+			map.panTo(markers[this.index].getPosition());
+		}
+		else{
+			infoWindows[chosen].close();
+			infoWindows[this.index].open(map, markers[this.index]);
+			map.panTo(markers[this.index].getPosition());
 		}
 		chosen = this.index;
-		infoWindows[this.index].open(map, markers[this.index]);
-		map.panTo(markers[this.index].getPosition());
+
 		
 	})
 	}
