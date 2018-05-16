@@ -35,7 +35,7 @@
   <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
 </ons-splitter>
 
-<template id="home.html">
+<ons-template id="home.html">
   <ons-page>
     <ons-toolbar modifier="transparent">
       <div class="right">
@@ -47,11 +47,11 @@
         BüirGártén
       </div>
     </ons-toolbar>
-    <div id=map></div>
+    <div id="mapDiv" class="gmap_div"></div>
 	<p>See what parks you can drink in!</p>
 	<ons-button modifier="large" class="button-margin">Drink</ons-button>
   </ons-page>
-</template>
+</ons-template>
 
 <template id="fav.html">
   <ons-page>
@@ -82,7 +82,12 @@
     </ons-toolbar>
   </ons-page>
 </template>
-	<script src="app.js"></script>
-	<script src="map.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script> -->
+    <!-- Google Maps -->
+	<script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+  <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
