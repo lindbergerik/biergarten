@@ -17,6 +17,8 @@ window.fn.load = function(page) {
     .then(menu.close.bind(menu));
 };
 
+
+
 var myStyles =[
     {
         featureType: "poi",
@@ -27,7 +29,7 @@ var myStyles =[
     }
 ];
 
-var map, infowindow;
+var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById("mapDiv"), {
 		center: {lat: 59.336559, lng: 18.062660},
@@ -37,51 +39,41 @@ function initMap() {
 		disableDefaultUI: true,
 		styles: myStyles
 	});
-
-	this.marker1 = new google.maps.Marker( {
-		position: {lat: 59.336559, lng: 18.062660},
-		map: map,
-		draggable: true,
-		animation: google.maps.Animation.DROP,
-		title: 'Hello World!'
-	});
-
-	this.marker2 = new google.maps.Marker( {
-		position: {lat: 59.336660, lng: 18.062458},
-		map: map,
-		animation: google.maps.Animation.BOUNCE,
-		title: 'HOLA'
-	});
-
-	var icon1 = {
-	    url: "https://github.com/lindbergerik/lindbergerik.github.io/blob/master/erik.jpg?raw=true", // url
-	    scaledSize: new google.maps.Size(50, 50), // scaled size
-	    origin: new google.maps.Point(0,0), // origin
-	    anchor: new google.maps.Point(0, 0) // anchor
-	};
-	var coordsErik = {lat: 59.312154, lng: 18.079739};
-	this.marker3 = new google.maps.Marker( {
-		position: coordsErik,
-		map: map,
-		icon: icon1,
-		title: 'Hannas!'
-	});
-
-	var icon2 = {
-	    url: "https://github.com/lindbergerik/lindbergerik.github.io/blob/master/sebbe.jpg?raw=true", // url
-	    scaledSize: new google.maps.Size(50, 50), // scaled size
-	    origin: new google.maps.Point(0,0), // origin
-	    anchor: new google.maps.Point(0, 0) // anchor
-	};
-	var coordsSebbe = {lat: 59.341122, lng: 18.058018};
-	this.marker4 = new google.maps.Marker( {
-		position: coordsSebbe,
-		map: map,
-		icon: icon2,
-		title: 'Hirschen!'
-	});
-
+	let chosen;
+	let markers = [];
+	let contents = [];
+	let infoWindows = [];
+	for (var i=0; i<parks.length; i++){
+		markers[i] = new google.maps.Marker({
+			position: {lat: parks[i].lat, lng: parks[i].lng},
+			map: map,
+			draggable: false,
+			animation: google.maps.Animation.DROP,
+			title: parks[i].name
+		})
+	markers[i].index = i;
+	contents[i] = '<h1>' + parks[i].name + '</h1><p> Drink here: '+parks[i].drink + '</p>';
+	
+	infoWindows[i] = new google.maps.InfoWindow({
+		content: contents[i],
+		maxWidth: 300
+	  });
+	google.maps.event.addListener(markers[i], 'click', function() {
+		if (chosen){
+			console.log()
+			if (markers[chosen].open){
+				infoWindows[chosen].close();
+				markers[chosen].open = false;
+			}
+		}
+		chosen = this.index;
+		infoWindows[this.index].open(map, markers[this.index]);
+		map.panTo(markers[this.index].getPosition());
+		
+	})
+	}
 }
+
 
 function geoLocation() {
 	//GEOLOCATION
@@ -115,10 +107,274 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-function goErik() {
-	map.setCenter({lat: 59.312154, lng: 18.079739});
-}
-
-function goSebbe() {
-	map.setCenter({lat: 59.341122, lng: 18.058018});
-}
+	var parks = [
+		//sup 'Always'
+		{
+			name: 'Kungsträdgården',
+			lat: 59.331375,
+			lng: 18.071424,
+			drink: 'Always'
+		},
+		{
+			name: 'Berzelii park',
+			lat: 59.332538,
+			lng: 18.075066,
+			drink: 'Always'
+		},
+		{
+			name: 'Djurgården',
+			lat: 59.326993,
+			lng: 18.121256,
+			drink: 'Always'
+		},
+		{
+			name: 'Gustaf Adolfsparken',
+			lat: 59.337225,
+			lng: 18.097979,
+			drink: 'Always'
+		},
+		{
+			name: 'Gärdet',
+			lat: 59.337102,
+			lng: 18.110871,
+			drink: 'Always'
+		},
+		{
+			name: 'Humlegården',
+			lat: 59.339611,
+			lng: 18.072231,
+			drink: 'Always'
+		},
+		{
+			name: 'Tessinparken',
+			lat: 59.342235,
+			lng: 18.094118,
+			drink: 'Always'
+		},
+		{
+			name: 'Klipporna i Fredhäll',
+			lat: 59.328683,
+			lng: 18.001143,
+			drink: 'Always'
+		},
+		{
+			name: 'Långholmen',
+			lat: 59.322128,
+			lng: 18.032814,
+			drink: 'Always'
+		},
+		{
+			name: 'Tegnérlunden',
+			lat: 59.338108,
+			lng: 18.054206,
+			drink: 'Always'
+		},
+		{
+			name: 'Vanadislunden',
+			lat: 59.348034,
+			lng: 18.055280,
+			drink: 'Always'
+		},
+		{
+			name: 'Vasaparken',
+			lat: 59.340473,
+			lng: 18.043717,
+			drink: 'Always'
+		},
+		{
+			name: 'Hagaparken',
+			lat: 59.361712,
+			lng: 18.034181,
+			drink: 'Always'
+		},
+		{
+			name: 'Ulriksdals slottspark',
+			lat: 59.390343,
+			lng: 18.014228,
+			drink: 'Always'
+		},
+		//drick mellan 07-00
+		{
+			name: 'Tantolunden',
+			lat: 59.312935, 
+			lng: 18.047503,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Skinnarviksparken',
+			lat: 59.319673,
+			lng: 18.048215,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Vitabergsparken',
+			lat: 59.311089,
+			lng: 18.090116,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Fåfängan',
+			lat: 59.314877,
+			lng: 18.102563,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Åsöberget',
+			lat: 59.314545,
+			lng: 18.095574,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Tantolunden',
+			lat: 59.313038,
+			lng: 18.046970,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Kristinebergsparken',
+			lat: 59.335224,
+			lng: 18.005440,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Rålambshovsparken',
+			lat: 59.328128,
+			lng: 18.024565,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Kronobergsparken',
+			lat: 59.331827,
+			lng: 18.035358,
+			drink: 'Between 07-00'
+		},
+		{
+			name: 'Galärparken–Lejonparken',
+			lat: 59.329245,
+			lng: 18.090988,
+			drink: 'Between 07-00'
+		},
+		//drink never
+		{
+			name: 'Mosebacke torg',
+			lat: 59.317974,
+			lng: 18.074383,
+			drink: 'Never'
+		},    
+		{
+			name: 'Sandbacksparken',
+			lat: 59.316837,
+			lng: 18.080256,
+			drink: 'Never'
+		},    
+		{
+			name: 'Stigbergsparken',
+			lat: 59.315807,
+			lng: 18.087153,
+			drink: 'Never'
+		},
+		{
+			name: 'Tengdahlsparken',
+			lat: 59.311139, 
+			lng: 18.093750,
+			drink: 'Never'
+		},
+		{
+			name: 'Axel Landquists park',
+			lat: 59.313974, 
+			lng: 18.080759,
+			drink: 'Never'
+		},
+		{
+			name: 'Droskan',
+			lat: 59.315278,
+			lng: 18.079073,
+			drink: 'Never'
+		},
+		{
+			name: 'Björns trädgård',
+			lat: 59.315180, 
+			lng: 18.074029,
+			drink: 'Never'
+		},
+		{
+			name: 'Nytorget',
+			lat: 59.312152, 
+			lng: 18.083321,
+			drink: 'Never'
+		},
+		{
+			name: 'Tullgårdsparken',
+			lat: 59.306285, 
+			lng: 18.082675,
+			drink: 'Never'
+		},
+		{
+			name: 'Fatbursparken',
+			lat: 59.314187, 
+			lng: 18.068415,
+			drink: 'Never'
+		},
+		{
+			name: 'Runt polishuset på Torkel Knutssonsgatan/Rosenlundsgatan',
+			lat: 59.315948, 
+			lng: 18.058712,
+			drink: 'Never'
+		},
+		{
+			name: 'Tjurbergsparken',
+			lat: 59.308409, 
+			lng: 18.071394,
+			drink: 'Never'
+		},
+		{
+			name: 'Sankt Göransparken',
+			lat: 59.334944,
+			lng: 18.024328,
+			drink: 'Never'
+		},
+		{
+			name: 'Kungsholmstorg',
+			lat: 59.327696, 
+			lng: 18.042473,
+			drink: 'Never'
+		},
+		{
+			name: 'Serafimerstranden',
+			lat: 59.328507, 
+			lng: 18.055126,
+			drink: 'Never'
+		},
+		{
+			name: 'Blekholmsstranden',
+			lat: 59.330975, 
+			lng: 18.051741,
+			drink: 'Never'
+		},
+		{
+			name: 'Norra bantorget',
+			lat: 59.334895, 
+			lng: 18.054516,
+			drink: 'Never'
+		},
+		{
+			name: 'Dammen vid Observatorielunden',
+			lat: 59.342723, 
+			lng: 18.056038,
+			drink: 'Never'
+		},
+		{
+			name: 'Monica Zetterlunds Park',
+			lat: 59.346313, 
+			lng: 18.060520,
+			drink: 'Never'
+		},
+		{
+			name: 'Brunnsviks strandbad',
+			lat: 59.362205,
+			lng: 18.048582,
+			drink: 'Never'
+		}
+	]
+	
+	
