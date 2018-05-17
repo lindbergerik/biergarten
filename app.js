@@ -76,7 +76,7 @@ function initMap() {
 			title: parks[i].name
 		})
 	markers[i].index = i;
-	contents[i] = '<h1>' + parks[i].name + '</h1><p> Drink here: '+parks[i].drink + '</p>';
+	contents[i] = '<h1>' + parks[i].name + '</h1><p> Drink here: '+parks[i].drink + '</p><ons-button onClick="addFav(\'' + parks[i].name + '\');" class="button-margin">Favorite</ons-button>';
 	
 	infoWindows[i] = new google.maps.InfoWindow({
 		content: contents[i],
@@ -153,9 +153,9 @@ function findDrinkLocation(){
 	console.log(closestPark.name);
 	var typeHere = document.getElementById("info");
 	if (closestPark.drink === "Always"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
 	} else if (closestPark.drink === "Between 07-00"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
 	}
 	
 }
@@ -212,6 +212,13 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
+}
+
+var myFavs = [];
+
+function addFav(name) {
+	myFavs.push(name);
+	console.log(myFavs);
 }
 
 function getTime(){
