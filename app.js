@@ -18,7 +18,6 @@ window.fn.load = function(page) {
 };
 
 
-
 var myStyles =[
     {
         featureType: "poi",
@@ -128,6 +127,11 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
+function getTime(){
+	var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+	console.log(timeStampInMs, Date.now());
+}
+getTime();
 	var parks = [
 		//sup 'Always'
 		{
