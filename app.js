@@ -96,8 +96,6 @@ function initMap() {
 			map.panTo(markers[this.index].getPosition());
 		}
 		chosen = this.index;
-
-		
 	})
 	}
 }
@@ -324,12 +322,6 @@ getTime();
 			name: 'Åsöberget',
 			lat: 59.314545,
 			lng: 18.095574,
-			drink: 'Between 07-00'
-		},
-		{
-			name: 'Tantolunden',
-			lat: 59.313038,
-			lng: 18.046970,
 			drink: 'Between 07-00'
 		},
 		{
