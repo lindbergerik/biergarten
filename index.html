@@ -20,7 +20,7 @@
     <ons-page>
       <ons-list>
       	<ons-list-header>BüirGártén</ons-list-header>
-        <ons-list-item onclick="fn.load('home.html')" tappable>
+        <ons-list-item onclick="goToHome()" tappable>
           Home
         </ons-list-item>
         <ons-list-item onclick="fn.load('fav.html')" tappable>
@@ -35,7 +35,7 @@
   <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
 </ons-splitter>
 
-<ons-template id="home.html">
+<ons-template style="background-color: rgba(0,0,0,0);"  id="home.html">
   <ons-page>
     <ons-toolbar modifier="transparent">
       <div class="right">
@@ -90,6 +90,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRkx9GoZq7qr0CnQxUKU6IRKgogE26u8M&amp;libraries=geometry&amp;callback=initMap"
     async defer></script>
 	<!--<script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZO8D2uZL_gdSmsq_ZKlE610jofk4evGM&callback=initMap" async defer></script>-->
-  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="app.js"></script> 
 </body>
 </html>

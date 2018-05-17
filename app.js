@@ -105,14 +105,14 @@ var myPosition;
 function here () {
 	if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position) {
-		var pos = new google.maps.LatLng(59.315180,18.074029) //(position.coords.latitude, position.coords.longitude);
+		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		myPosition = new google.maps.Marker({
 			position: pos,
-			lat: 59.315180, 
-			lng: 18.074029,
+			//lat: 59.315180, 
+			//lng: 18.074029,
 			icon: './img/beerapi.png',
-			//lat: position.coords.latitude,
-			//lng: position.coords.longitude,
+			lat: position.coords.latitude,
+			lng: position.coords.longitude,
 			animation: google.maps.Animation.BOUNCE,
 			title:"Here you at, boiiii!",
 		});
@@ -135,7 +135,8 @@ function findDrinkLocation(){
 		if ( distance < closestDistance){
 			if (parks[i].drink !== 'Never'){
 				time = this.getTime();
-				if( time > 00 && time < 07){
+				console.log(time + ' **** ')
+				if( time >= 00 && time <= 07){
 					if (parks[i].drink === "Always"){
 						closestDistance = distance;
 						closestPark = parks[i];
@@ -182,30 +183,6 @@ function calculateRoute(){
 		});
 }
 
-function geoLocation() {
-	//GEOLOCATION
-	infoWindow = new google.maps.InfoWindow;
-	// Try HTML5 geolocation.
-	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(function(position) {
-	    	var pos = {
-	        	lat: position.coords.latitude,
-	        	lng: position.coords.longitude
-			};
-
-	        infoWindow.setPosition(pos);
-	        infoWindow.setContent('Location found.');
-	        infoWindow.open(map);
-	        map.setCenter(pos);
-	    }, function() {
-	    	handleLocationError(true, infoWindow, map.getCenter());
-		});
-	} else {
-		// Browser doesn't support Geolocation
-		handleLocationError(false, infoWindow, map.getCenter());
-	}
-}
-
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
@@ -216,8 +193,14 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function getTime(){
 	var date = new Date();
+	console.log('date ' + date)
 	var hour = date.getHours(); 
+	return hour;
 }
+function goToHome(){
+	fn.load('home.html');
+}
+
 getTime();
 	var parks = [
 		//sup 'Always'
