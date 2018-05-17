@@ -29,6 +29,7 @@ var myStyles =[
 ];
 
 var map;
+let markers = [];
 function initMap() {
 	map = new google.maps.Map(document.getElementById("mapDiv"), {
 		center: {lat: 59.336559, lng: 18.062660},
@@ -38,8 +39,11 @@ function initMap() {
 		disableDefaultUI: true,
 		styles: myStyles
 	});
+
+	here();
+
 	let chosen = false;
-	let markers = [];
+	
 	let contents = [];
 	let infoWindows = [];
 	for (var i=0; i<parks.length; i++){
@@ -93,7 +97,52 @@ function initMap() {
 	})
 	}
 }
+var myPosition;
+function here () {
+	if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+		myPosition = new google.maps.Marker({
+			position: pos,
+			lat: position.coords.latitude,
+			lng: position.coords.longitude,
+			animation: google.maps.Animation.BOUNCE,
+			title:"Here you at, boiiii!",
+		});
+		myPosition.setMap(map);
+	}, function() {
+		handleLocationError(true, infoWindow, map.getCenter());
+		});
+	}
+}
 
+function findDrinkLocation(){
+	var closestPark;
+	var closestDistance = 100000;
+	for (var i=0; i < parks.length; i++){
+		var parkLocation = new google.maps.LatLng(parks[i].lat, parks[i].lng);
+		var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
+		//console.log('förra ' + closestDistance)
+		var distance =  google.maps.geometry.spherical.computeDistanceBetween(parkLocation, hereLocation);
+		//console.log('nya ' + distance + 'till ' + parks[i].name)
+		//console.log('avståndet är ' + distance)
+		if ( distance < closestDistance){
+			if (parks[i].drink !== 'Never'){
+				closestDistance = distance;
+				closestPark = parks[i];
+				console.log('ny närmaste ' + closestPark.name)
+			}
+		}
+	}
+	console.log(closestPark.name);
+	var typeHere = document.getElementById("info");
+	if (closestPark.drink === "Always"){
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p>";
+	} else if (closestPark.drink === "0700"){
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p>";
+	}
+	
+}
 
 function geoLocation() {
 	//GEOLOCATION
@@ -104,7 +153,7 @@ function geoLocation() {
 	    	var pos = {
 	        	lat: position.coords.latitude,
 	        	lng: position.coords.longitude
-	    	};
+			};
 
 	        infoWindow.setPosition(pos);
 	        infoWindow.setContent('Location found.');
@@ -128,8 +177,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function getTime(){
-	var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
-	console.log(timeStampInMs, Date.now());
+	var date = new Date();
+	var dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()  + ":" +  date.getSeconds(); 
 }
 getTime();
 	var parks = [

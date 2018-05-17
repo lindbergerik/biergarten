@@ -48,8 +48,8 @@
       </div>
     </ons-toolbar>
     <div id="mapDiv" class="gmap_div"></div>
-	<p>See what parks you can drink in!</p>
-	<ons-button modifier="large" class="button-margin">Drink</ons-button>
+  <ons-button modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
+  <div id="info"></div>
   </ons-page>
 </ons-template>
 
@@ -87,7 +87,7 @@
     <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script> -->
     <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRkx9GoZq7qr0CnQxUKU6IRKgogE26u8M&amp;callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRkx9GoZq7qr0CnQxUKU6IRKgogE26u8M&amp;libraries=geometry&amp;callback=initMap"
     async defer></script>
 	<!--<script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZO8D2uZL_gdSmsq_ZKlE610jofk4evGM&callback=initMap" async defer></script>-->
   <script type="text/javascript" src="app.js"></script>
