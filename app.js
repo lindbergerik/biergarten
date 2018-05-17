@@ -105,11 +105,14 @@ var myPosition;
 function here () {
 	if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position) {
-		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		var pos = new google.maps.LatLng(59.315180,18.074029) //(position.coords.latitude, position.coords.longitude);
 		myPosition = new google.maps.Marker({
 			position: pos,
-			lat: position.coords.latitude,
-			lng: position.coords.longitude,
+			lat: 59.315180, 
+			lng: 18.074029,
+			icon: './img/beerapi.png',
+			//lat: position.coords.latitude,
+			//lng: position.coords.longitude,
 			animation: google.maps.Animation.BOUNCE,
 			title:"Here you at, boiiii!",
 		});
@@ -131,18 +134,28 @@ function findDrinkLocation(){
 		//console.log('avståndet är ' + distance)
 		if ( distance < closestDistance){
 			if (parks[i].drink !== 'Never'){
-				closestDistance = distance;
-				closestPark = parks[i];
-				console.log('ny närmaste ' + closestPark.name)
+				time = this.getTime();
+				if( time > 00 && time < 07){
+					if (parks[i].drink === "Always"){
+						closestDistance = distance;
+						closestPark = parks[i];
+						console.log('ny närmaste ' + closestPark.name)
+					}
+				}
+				else{
+					closestDistance = distance;
+					closestPark = parks[i];
+					console.log('ny närmaste ' + closestPark.name)
+				}
 			}
 		}
 	}
 	console.log(closestPark.name);
 	var typeHere = document.getElementById("info");
 	if (closestPark.drink === "Always"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button onClick='calculateRoute()'>Get me here!</ons-button>";
-	} else if (closestPark.drink === "0700"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button onClick='calculateRoute()'>Get me here!</ons-button>";
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+	} else if (closestPark.drink === "Between 07-00"){
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
 	}
 	
 }
@@ -203,7 +216,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function getTime(){
 	var date = new Date();
-	var dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()  + ":" +  date.getSeconds(); 
+	var hour = date.getHours(); 
 }
 getTime();
 	var parks = [
