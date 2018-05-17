@@ -31,6 +31,9 @@ var myStyles =[
 var map;
 let markers = [];
 function initMap() {
+
+	
+
 	map = new google.maps.Map(document.getElementById("mapDiv"), {
 		center: {lat: 59.336559, lng: 18.062660},
 		zoom: 11,
@@ -39,6 +42,7 @@ function initMap() {
 		disableDefaultUI: true,
 		styles: myStyles
 	});
+
 
 	here();
 
@@ -101,7 +105,7 @@ var myPosition;
 function here () {
 	if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position) {
-		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		myPosition = new google.maps.Marker({
 			position: pos,
 			lat: position.coords.latitude,
@@ -115,9 +119,8 @@ function here () {
 		});
 	}
 }
-
+var closestPark;
 function findDrinkLocation(){
-	var closestPark;
 	var closestDistance = 100000;
 	for (var i=0; i < parks.length; i++){
 		var parkLocation = new google.maps.LatLng(parks[i].lat, parks[i].lng);
@@ -137,11 +140,33 @@ function findDrinkLocation(){
 	console.log(closestPark.name);
 	var typeHere = document.getElementById("info");
 	if (closestPark.drink === "Always"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p>";
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button onClick='calculateRoute()'>Get me here!</ons-button>";
 	} else if (closestPark.drink === "0700"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p>";
+		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button onClick='calculateRoute()'>Get me here!</ons-button>";
 	}
 	
+}
+function calculateRoute(){
+	var directionsService = new google.maps.DirectionsService();
+	var directionsDisplay = new google.maps.DirectionsRenderer();
+	directionsDisplay.setMap(map);
+	directionsDisplay.setOptions( { suppressMarkers: true } );
+
+	console.log(closestPark.name + ' to ' + myPosition.title)
+	var parkLocation = new google.maps.LatLng(closestPark.lat, closestPark.lng);
+	var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
+	var request = {
+		origin: hereLocation,
+			destination: parkLocation,
+			travelMode: google.maps.DirectionsTravelMode.WALKING
+		};
+
+		directionsService = new google.maps.DirectionsService();
+		directionsService.route(request, function(response, status) {
+		  if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+		  }
+		});
 }
 
 function geoLocation() {
