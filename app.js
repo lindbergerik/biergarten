@@ -133,8 +133,8 @@ function initMap(parksArray) {
 		})
 	markers[i].index = i;
 	contents[i] = '<h1>' + parksArray[i].name + '</h1><p> Drink here: '+parksArray[i].drink
-		+'</p><ons-button onClick="addFav(\'' + parksArray[i].name + '\'); ons.notification.toast(\'Added to favorites! \', { timeout: 1000, animation: \'fall\' })" class="button-margin">Favorite</ons-button>'
-		+'</p><ons-button onClick="calculateRoute(\'' + parksArray[i].name + '\')" class="button-margin">Take me there</ons-button>';
+		+'</p><ons-row><ons-button id="addFav" onClick="addFav(\'' + parksArray[i].name + '\'); ons.notification.toast(\'Added to favorites! \', { timeout: 1000, animation: \'fall\' })" class="left button-margin" style="margin-right:5%;">Favorite</ons-button>'
+		+'<ons-button id="takeMe" onClick="calculateRoute(\'' + parksArray[i].name + '\')" class="right button-margin">Take me there</ons-button></ons-row>';
 	
 	infoWindows[i] = new google.maps.InfoWindow({
 		content: contents[i],

@@ -20,6 +20,12 @@ i {
 
 }
 
+.takeMe, .myFave {
+	width:50%;
+	height:50%;
+	font-size:15px;
+}
+
 .ons-toolbar {
 	background-color: #43a047;
 	color: #ffe54c;
@@ -28,6 +34,10 @@ i {
 .fab__icon, .speed-dial__item, .button{
 	background-color: #ffb300;
 	font-size: 25px;
+	font-family: Proxima Nova;
+}
+#addFav, #takeMe{
+	font-size:16px;
 	font-family: Proxima Nova;
 }
 
