@@ -6,12 +6,12 @@ document.addEventListener('prechange', function(event) {
 ons.createElement('favoritesDialog.html', { append: true })
 ons.createElement('aboutDialog.html', { append: true })
 
-var favObjs = [];
+var favObjs;
 document.getElementById('showFav').addEventListener('change', function(e) {
 	favObjs = [];
 	favorites = JSON.parse(localStorage.getItem('favs'));
 	console.log(favorites)
-	if (document.getElementById('showFav').checked == true){
+	if (document.getElementById('showFav').checked === true){
 		for (var i = favorites.length - 1; i >= 0; i--) {
 			for (var o = parks.length - 1; o >= 0; o--) {
 				if ( favorites[i] === parks[o].name){
@@ -52,23 +52,6 @@ var showAboutDialog = function() {
     dialog.show();
   	}
   }
-
-var favObjs = [];
-document.getElementById('showFav').addEventListener('change', function(e) {
-	favObjs = [];
-	if (document.getElementById('showFav').checked == true){
-		for (var i = myFavs.length - 1; i >= 0; i--) {
-			for (var o = parks.length - 1; o >= 0; o--) {
-				if ( myFavs[i] === parks[o].name){
-					favObjs.push(parks[o])
-				}
-			}
-		}
-		initMap(favObjs);
-	} else{
-		initMap(parks);
-	}
-})
 
 var hideDialog = function(id) {
   document
