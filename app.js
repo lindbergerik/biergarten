@@ -3,10 +3,32 @@ document.addEventListener('prechange', function(event) {
     .innerHTML = event.tabItem.getAttribute('label');
 });
 
-ons.createElement('dialog.html', { append: true })
+ons.createElement('favoritesDialog.html', { append: true })
+ons.createElement('aboutDialog.html', { append: true })
 
-var showTemplateDialog = function() {
-  var dialog = document.getElementById('my-dialog');
+var showFavoritesDialog = function() {
+  var dialog = document.getElementById('favorites');
+  
+  if (dialog) {
+    dialog.show();
+  }
+
+  var add = document.getElementById('favList');
+  	  while (add.firstChild){
+	  	add.removeChild(add.firstChild);
+	  }
+  for (var i = 0; i < myFavs.length; i++) {
+	  var node2 = document.createElement("p");
+	  var node = document.createElement("b");
+	  var textnode = document.createTextNode(myFavs[i]);
+	  node2.appendChild(node);
+	  node.appendChild(textnode);
+	  add.appendChild(node2);
+	}
+};
+
+var showAboutDialog = function() {
+  var dialog = document.getElementById('about');
   
   if (dialog) {
     dialog.show();
@@ -167,9 +189,10 @@ function findDrinkLocation(){
 	console.log(closestPark.name);
 	var typeHere = document.getElementById("info");
 	if (closestPark.drink === "Always"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+		calculateRoute()
+		// typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
 	} else if (closestPark.drink === "Between 07-00"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+		calculateRoute		// typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
 	}
 	
 }
