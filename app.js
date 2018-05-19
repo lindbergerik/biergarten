@@ -29,24 +29,27 @@ var showFavoritesDialog = function() {
 
 var showAboutDialog = function() {
   var dialog = document.getElementById('about');
-  
-  if (dialog) {
+    if (dialog) {
     dialog.show();
+  	}
   }
 
-  var add = document.getElementById('favList');
-  	  while (add.firstChild){
-	  	add.removeChild(add.firstChild);
-	  }
-  for (var i = 0; i < myFavs.length; i++) {
-	  var node2 = document.createElement("p");
-	  var node = document.createElement("b");
-	  var textnode = document.createTextNode(myFavs[i]);
-	  node2.appendChild(node);
-	  node.appendChild(textnode);
-	  add.appendChild(node2);
+var favObjs = [];
+document.getElementById('showFav').addEventListener('change', function(e) {
+	favObjs = [];
+	if (document.getElementById('showFav').checked == true){
+		for (var i = myFavs.length - 1; i >= 0; i--) {
+			for (var o = parks.length - 1; o >= 0; o--) {
+				if ( myFavs[i] === parks[o].name){
+					favObjs.push(parks[o])
+				}
+			}
+		}
+		initMap(favObjs);
+	} else{
+		initMap(parks);
 	}
-};
+})
 
 var hideDialog = function(id) {
   document
@@ -89,21 +92,21 @@ function initMap(parksArray) {
 	let contents = [];
 	let infoWindows = [];
 	for (var i=0; i<parksArray.length; i++){
-		var icon = {};
+		var icon;
 
 		if (parksArray[i].drink === 'Never'){
-			icon.url = './img/drink_no.png'
+			icon = './img/drink_no.png'
 		}
 		else if (parksArray[i].drink === 'Always'){
-			icon.url = './img/drink.png'
+			icon = './img/drink.png'
 		}
 		else{
-			icon.url = './img/drink_time.png'
+			icon = './img/drink_time.png'
 		}
 
 		markers[i] = new google.maps.Marker({
 			position: {lat: parksArray[i].lat, lng: parksArray[i].lng},
-			icon: icon.url,
+			icon: icon,
 			map: map,
 			draggable: false,
 			animation: google.maps.Animation.DROP,
@@ -156,28 +159,32 @@ function here () {
 }
 var closestPark;
 function findDrinkLocation(){
+	if (document.getElementById('showFav').checked == true){
+		parksArray = favObjs;
+	}
+	else{
+		parksArray = parks;
+	}
 	var closestDistance = 100000;
-	for (var i=0; i < parks.length; i++){
-		var parkLocation = new google.maps.LatLng(parks[i].lat, parks[i].lng);
+	for (var i=0; i < parksArray.length; i++){
+		var parkLocation = new google.maps.LatLng(parksArray[i].lat, parksArray[i].lng);
 		var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
-		//console.log('förra ' + closestDistance)
+
 		var distance =  google.maps.geometry.spherical.computeDistanceBetween(parkLocation, hereLocation);
-		//console.log('nya ' + distance + 'till ' + parks[i].name)
-		//console.log('avståndet är ' + distance)
 		if ( distance < closestDistance){
-			if (parks[i].drink !== 'Never'){
+			if (parksArray[i].drink !== 'Never'){
 				time = this.getTime();
 				console.log(time + ' **** ')
 				if( time >= 00 && time <= 07){
-					if (parks[i].drink === "Always"){
+					if (parkparksArrays[i].drink === "Always"){
 						closestDistance = distance;
-						closestPark = parks[i];
+						closestPark = parksArray[i];
 						console.log('ny närmaste ' + closestPark.name)
 					}
 				}
 				else{
 					closestDistance = distance;
-					closestPark = parks[i];
+					closestPark = parksArray[i];
 					console.log('ny närmaste ' + closestPark.name)
 				}
 			}
@@ -197,7 +204,9 @@ function calculateRoute(){
 	var directionsService = new google.maps.DirectionsService();
 	var directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
-	directionsDisplay.setOptions( { suppressMarkers: true } );
+	directionsDisplay.setOptions({
+		suppressMarkers: true
+	});
 
 	console.log(closestPark.name + ' to ' + myPosition.title)
 	var parkLocation = new google.maps.LatLng(closestPark.lat, closestPark.lng);
