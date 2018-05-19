@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="mobile-web-app-capable" content="yes">
   <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+  <link rel="icon" href="apple-touch-icon.png">
 	<!-- Onsen UI -->
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
@@ -73,9 +74,7 @@
     <div style="text-align: center; padding: 50px; width: 370px; height: 650px; position: relative;">
       <h1>Favorites</h1>
       <div id="favList"></div>
-
-      <div style="text-align: center;position: absolute; bottom: 0;padding: 30px;">  
-      <p>Show on map: <ons-switch></ons-switch></p>
+      <div style="text-align: center;position: absolute; bottom: 0;padding: 30px;">
       <p>
         <ons-button modifier="large" class="button-margin" onclick="clearFavs()">Clear Favorites</ons-button>
         <ons-button modifier="large" class="button-margin" onclick="hideDialog('favorites')">Close</ons-button>
