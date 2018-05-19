@@ -68,14 +68,11 @@ function initMap(parksArray) {
 	let infoWindows = [];
 	for (var i=0; i<parksArray.length; i++){
 		var icon = {};
-		icon.scaledSize = new google.maps.Size(2, 2)
-		icon.origin = new google.maps.Point(0,0)
-		icon.anchor = new google.maps.Point(0,0)
 
-		if (parks[i].drink === 'Never'){
+		if (parksArray[i].drink === 'Never'){
 			icon.url = './img/drink_no.png'
 		}
-		else if (parks[i].drink === 'Always'){
+		else if (parksArray[i].drink === 'Always'){
 			icon.url = './img/drink.png'
 		}
 		else{
@@ -225,8 +222,6 @@ function addFav(name) {
 		myFavs.push(name);
 		console.log(myFavs);
 	}
-
-	
 }
 
 function getTime(){
