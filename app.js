@@ -67,9 +67,10 @@ var myStyles =[
 
 var map;
 let markers = [];
-function initMap() {
-
-	
+function initMap(parksArray) {
+	if (!(parksArray)){
+		parksArray = parks;
+	}
 
 	map = new google.maps.Map(document.getElementById("mapDiv"), {
 		center: {lat: 59.336559, lng: 18.062660},
@@ -87,16 +88,13 @@ function initMap() {
 	
 	let contents = [];
 	let infoWindows = [];
-	for (var i=0; i<parks.length; i++){
+	for (var i=0; i<parksArray.length; i++){
 		var icon = {};
-		icon.scaledSize = new google.maps.Size(2, 2)
-		icon.origin = new google.maps.Point(0,0)
-		icon.anchor = new google.maps.Point(0,0)
 
-		if (parks[i].drink === 'Never'){
+		if (parksArray[i].drink === 'Never'){
 			icon.url = './img/drink_no.png'
 		}
-		else if (parks[i].drink === 'Always'){
+		else if (parksArray[i].drink === 'Always'){
 			icon.url = './img/drink.png'
 		}
 		else{
@@ -104,16 +102,15 @@ function initMap() {
 		}
 
 		markers[i] = new google.maps.Marker({
-			position: {lat: parks[i].lat, lng: parks[i].lng},
+			position: {lat: parksArray[i].lat, lng: parksArray[i].lng},
 			icon: icon.url,
-			//scaledSize: new google.maps.Size(25, 25),
 			map: map,
 			draggable: false,
 			animation: google.maps.Animation.DROP,
-			title: parks[i].name
+			title: parksArray[i].name
 		})
 	markers[i].index = i;
-	contents[i] = '<h1>' + parks[i].name + '</h1><p> Drink here: '+parks[i].drink + '</p><ons-button onClick="addFav(\'' + parks[i].name + '\');" class="button-margin">Favorite</ons-button>';
+	contents[i] = '<h1>' + parksArray[i].name + '</h1><p> Drink here: '+parksArray[i].drink + '</p><ons-button onClick="addFav(\'' + parksArray[i].name + '\');" class="button-margin">Favorite</ons-button>';
 	
 	infoWindows[i] = new google.maps.InfoWindow({
 		content: contents[i],
@@ -230,6 +227,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 var myFavs = [];
 
 function addFav(name) {
+	console.log(name)
 	if (myFavs.length > 0) {
 		var exist = false;
 		for (var i = myFavs.length - 1; i >= 0; i--) {
@@ -247,8 +245,6 @@ function addFav(name) {
 		myFavs.push(name);
 		console.log(myFavs);
 	}
-
-	
 }
 
 function getTime(){
