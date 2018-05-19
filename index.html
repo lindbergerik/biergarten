@@ -9,83 +9,49 @@
 	<!-- Onsen UI -->
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
 	<link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-	<ons-splitter>
-  <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
-    <ons-page>
-      <ons-list>
-      	<ons-list-header>BüirGártén</ons-list-header>
-        <ons-list-item onclick="fn.load('home.html')" tappable>
-          Home
-        </ons-list-item>
-        <ons-list-item onclick="fn.load('fav.html')" tappable>
-          Favorites
-        </ons-list-item>
-        <ons-list-item onclick="fn.load('about.html')" tappable>
-          About
-        </ons-list-item>
-      </ons-list>
-    </ons-page>
-  </ons-splitter-side>
-  <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
-</ons-splitter>
-
-<ons-template id="home.html">
-  <ons-page>
-    <ons-toolbar modifier="transparent">
-      <div class="right">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center">
-        BüirGártén
-      </div>
+<ons-page>
+  <ons-toolbar modifier="transparent">
+    <div class="right">
+      <ons-toolbar-button onclick="showTemplateDialog()">
+        <i class="far fa-heart"></i>
+      </ons-toolbar-button>
+    </div>
+    <div class="center">
+      BüirGártén
+    </div>
     </ons-toolbar>
     <div class="page">
-      <div id="mapDiv" class="gmap_div"></div>
-      <div class="content">
-        <ons-button modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
-        <div id="info"></div>
+    <div id="mapDiv" class="gmap_div"></div>
+    <div class="content">
+      <ons-button modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
+      <div id="info"></div>
+    </div>
+  </div>    
+</ons-page>
+
+<template id="dialog.html">
+  <ons-dialog id="my-dialog">
+    <div style="text-align: center; padding: 50px; width: 370px; height: 650px; position: relative;">
+      <h1>Favorites</h1>
+      <div id="favList"></div>
+
+      <div style="text-align: center;position: absolute; bottom: 0;padding: 30px;">  
+      <p>Show on map: <ons-switch></ons-switch></p>
+      <p>
+        <ons-button modifier="large" class="button-margin" onclick="hideDialog('my-dialog')">Close</ons-button>
+      </p>
       </div>
     </div>
-  </ons-page>
-</ons-template>
-
-<template id="fav.html">
-  <ons-page>
-    <ons-toolbar>
-      <div class="right">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center">
-        Favorites
-      </div>
-    </ons-toolbar>
-  </ons-page>
+  </ons-dialog>
 </template>
 
-<template id="about.html">
-  <ons-page>
-    <ons-toolbar>
-      <div class="right">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center">
-        About
-      </div>
-    </ons-toolbar>
-  </ons-page>
-</template>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
@@ -94,6 +60,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRkx9GoZq7qr0CnQxUKU6IRKgogE26u8M&amp;libraries=geometry&amp;callback=initMap"
     async defer></script>
 	<!--<script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZO8D2uZL_gdSmsq_ZKlE610jofk4evGM&callback=initMap" async defer></script>-->
-  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="app.js"></script> 
 </body>
 </html>

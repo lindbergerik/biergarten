@@ -3,18 +3,33 @@ document.addEventListener('prechange', function(event) {
     .innerHTML = event.tabItem.getAttribute('label');
 });
 
-window.fn = {};
+ons.createElement('dialog.html', { append: true })
 
-window.fn.open = function() {
-  var menu = document.getElementById('menu');
-  menu.open();
+var showTemplateDialog = function() {
+  var dialog = document.getElementById('my-dialog');
+  
+  if (dialog) {
+    dialog.show();
+  }
+
+  var add = document.getElementById('favList');
+  	  while (add.firstChild){
+	  	add.removeChild(add.firstChild);
+	  }
+  for (var i = 0; i < myFavs.length; i++) {
+	  var node2 = document.createElement("p");
+	  var node = document.createElement("b");
+	  var textnode = document.createTextNode(myFavs[i]);
+	  node2.appendChild(node);
+	  node.appendChild(textnode);
+	  add.appendChild(node2);
+	}
 };
 
-window.fn.load = function(page) {
-  var content = document.getElementById('content');
-  var menu = document.getElementById('menu');
-  content.load(page)
-    .then(menu.close.bind(menu));
+var hideDialog = function(id) {
+  document
+    .getElementById(id)
+    .hide();
 };
 
 
@@ -96,8 +111,6 @@ function initMap() {
 			map.panTo(markers[this.index].getPosition());
 		}
 		chosen = this.index;
-
-		
 	})
 	}
 }
@@ -105,14 +118,14 @@ var myPosition;
 function here () {
 	if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position) {
-		var pos = new google.maps.LatLng(59.315180,18.074029) //(position.coords.latitude, position.coords.longitude);
+		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		myPosition = new google.maps.Marker({
 			position: pos,
-			lat: 59.315180, 
-			lng: 18.074029,
+			//lat: 59.315180, 
+			//lng: 18.074029,
 			icon: './img/beerapi.png',
-			//lat: position.coords.latitude,
-			//lng: position.coords.longitude,
+			lat: position.coords.latitude,
+			lng: position.coords.longitude,
 			animation: google.maps.Animation.BOUNCE,
 			title:"Here you at, boiiii!",
 		});
@@ -135,7 +148,8 @@ function findDrinkLocation(){
 		if ( distance < closestDistance){
 			if (parks[i].drink !== 'Never'){
 				time = this.getTime();
-				if( time > 00 && time < 07){
+				console.log(time + ' **** ')
+				if( time >= 00 && time <= 07){
 					if (parks[i].drink === "Always"){
 						closestDistance = distance;
 						closestPark = parks[i];
@@ -182,30 +196,6 @@ function calculateRoute(){
 		});
 }
 
-function geoLocation() {
-	//GEOLOCATION
-	infoWindow = new google.maps.InfoWindow;
-	// Try HTML5 geolocation.
-	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(function(position) {
-	    	var pos = {
-	        	lat: position.coords.latitude,
-	        	lng: position.coords.longitude
-			};
-
-	        infoWindow.setPosition(pos);
-	        infoWindow.setContent('Location found.');
-	        infoWindow.open(map);
-	        map.setCenter(pos);
-	    }, function() {
-	    	handleLocationError(true, infoWindow, map.getCenter());
-		});
-	} else {
-		// Browser doesn't support Geolocation
-		handleLocationError(false, infoWindow, map.getCenter());
-	}
-}
-
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
@@ -217,14 +207,37 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 var myFavs = [];
 
 function addFav(name) {
-	myFavs.push(name);
-	console.log(myFavs);
+	if (myFavs.length > 0) {
+		var exist = false;
+		for (var i = myFavs.length - 1; i >= 0; i--) {
+			if (myFavs[i] === name){
+				exist = true;
+			}
+		}
+		if (exist == true) {
+			return
+		} else{
+			myFavs.push(name);
+			console.log(myFavs);
+		}
+	} else{
+		myFavs.push(name);
+		console.log(myFavs);
+	}
+
+	
 }
 
 function getTime(){
 	var date = new Date();
+	console.log('date ' + date)
 	var hour = date.getHours(); 
+	return hour;
 }
+function goToHome(){
+	fn.load('home.html');
+}
+
 getTime();
 	var parks = [
 		//sup 'Always'
@@ -341,12 +354,6 @@ getTime();
 			name: 'Åsöberget',
 			lat: 59.314545,
 			lng: 18.095574,
-			drink: 'Between 07-00'
-		},
-		{
-			name: 'Tantolunden',
-			lat: 59.313038,
-			lng: 18.046970,
 			drink: 'Between 07-00'
 		},
 		{
