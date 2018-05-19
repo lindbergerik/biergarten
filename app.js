@@ -216,12 +216,9 @@ function findDrinkLocation(){
 	if (closestPark.drink !== "Never"){
 		calculateRoute(closestPark.name)
 	}
-		// typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
-	//} else if (closestPark.drink === "Between 07-00"){
-	//	calculateRoute(closestPark.name)		// typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
-	//}
-	
 }
+var directionsService;
+var directionsDisplay;
 function calculateRoute(destPark){
 	console.log('hallååååå')
 	var destination;
@@ -230,9 +227,13 @@ function calculateRoute(destPark){
 			destination = parks[i];
 		}
 	}
-
-	var directionsService = new google.maps.DirectionsService();
-	var directionsDisplay = new google.maps.DirectionsRenderer();
+		// Clear past routes
+	if (directionsDisplay != null) {
+		directionsDisplay.setMap(null);
+		directionsDisplay = null;
+	}
+	directionsService = new google.maps.DirectionsService();
+	directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
 	directionsDisplay.setOptions({
 		suppressMarkers: true
