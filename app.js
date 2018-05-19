@@ -152,28 +152,31 @@ function here () {
 var closestPark;
 function findDrinkLocation(){
 	if (document.getElementById('showFav').checked == true){
-		parks = favObjs;
+		parksArray = favObjs;
+	}
+	else{
+		parksArray = parks;
 	}
 	var closestDistance = 100000;
-	for (var i=0; i < parks.length; i++){
-		var parkLocation = new google.maps.LatLng(parks[i].lat, parks[i].lng);
+	for (var i=0; i < parksArray.length; i++){
+		var parkLocation = new google.maps.LatLng(parksArray[i].lat, parksArray[i].lng);
 		var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
 
 		var distance =  google.maps.geometry.spherical.computeDistanceBetween(parkLocation, hereLocation);
 		if ( distance < closestDistance){
-			if (parks[i].drink !== 'Never'){
+			if (parksArray[i].drink !== 'Never'){
 				time = this.getTime();
 				console.log(time + ' **** ')
 				if( time >= 00 && time <= 07){
-					if (parks[i].drink === "Always"){
+					if (parkparksArrays[i].drink === "Always"){
 						closestDistance = distance;
-						closestPark = parks[i];
+						closestPark = parksArray[i];
 						console.log('ny närmaste ' + closestPark.name)
 					}
 				}
 				else{
 					closestDistance = distance;
-					closestPark = parks[i];
+					closestPark = parksArray[i];
 					console.log('ny närmaste ' + closestPark.name)
 				}
 			}
