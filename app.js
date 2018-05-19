@@ -15,7 +15,6 @@ document.getElementById('showFav').addEventListener('change', function(e) {
 			for (var o = parks.length - 1; o >= 0; o--) {
 				if ( favorites[i] === parks[o].name){
 					favObjs.push(parks[o])
-					console.log('hallå ' + parks[o].name)
 				}
 			}
 		}
@@ -108,7 +107,9 @@ function initMap(parksArray) {
 			title: parksArray[i].name
 		})
 	markers[i].index = i;
-	contents[i] = '<h1>' + parksArray[i].name + '</h1><p> Drink here: '+parksArray[i].drink + '</p><ons-button onClick="addFav(\'' + parksArray[i].name + '\');" class="button-margin">Favorite</ons-button>';
+	contents[i] = '<h1>' + parksArray[i].name + '</h1><p> Drink here: '+parksArray[i].drink
+		+'</p><ons-button onClick="addFav(\'' + parksArray[i].name + '\'); ons.notification.toast(\'Added to favorites! \', { timeout: 1000, animation: \'fall\' })" class="button-margin">Favorite</ons-button>'
+		+'</p><ons-button onClick="calculateRoute(\'' + parksArray[i].name + '\')" class="button-margin">Take me there</ons-button>';
 	
 	infoWindows[i] = new google.maps.InfoWindow({
 		content: contents[i],
@@ -188,13 +189,21 @@ function findDrinkLocation(){
 	console.log(closestPark.name);
 	var typeHere = document.getElementById("info");
 	if (closestPark.drink === "Always"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+		typeHere.innerHTML = '<h1> The park closest to your location is ' + closestPark.name + '.</h1><p>Here you can always drink.</p><ons-button modifier=\"large\" onClick="calculateRoute(\'' + closestPark.name + '\')">Shorty I could take you there!</ons-button>';
 	} else if (closestPark.drink === "Between 07-00"){
 		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
 	}
 	
 }
-function calculateRoute(){
+function calculateRoute(destPark){
+	console.log('hallååååå')
+	var destination;
+	for (var i = 0; i<parks.length; i++){
+		if (parks[i].name === destPark){
+			destination = parks[i];
+		}
+	}
+
 	var directionsService = new google.maps.DirectionsService();
 	var directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
@@ -202,8 +211,8 @@ function calculateRoute(){
 		suppressMarkers: true
 	});
 
-	console.log(closestPark.name + ' to ' + myPosition.title)
-	var parkLocation = new google.maps.LatLng(closestPark.lat, closestPark.lng);
+	console.log(destination.name + ' to ' + myPosition.title)
+	var parkLocation = new google.maps.LatLng(destination.lat, destination.lng);
 	var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
 	var request = {
 		origin: hereLocation,
@@ -249,6 +258,48 @@ function addFav(name) {
 		console.log(myFavs);
 	}
 	localStorage.setItem('favs', JSON.stringify(myFavs));
+}
+
+function clearFavs(){
+	myFavs = [];
+	var add = document.getElementById('favList');
+  	while (add.firstChild){
+	  	add.removeChild(add.firstChild);
+	  }
+}
+
+function getDirections(name){
+	console.log('hallååååå')
+	var destination;
+	for (var i = 0; i<parks.length; i++){
+		if (parks[i].name === name){
+			destination = parks[i];
+		}
+	}
+
+	var directionsService = new google.maps.DirectionsService();
+	var directionsDisplay = new google.maps.DirectionsRenderer();
+
+	directionsDisplay.setMap(map);
+	directionsDisplay.setOptions({
+		suppressMarkers: true
+	});
+
+	console.log(destination.name + ' to ' + myPosition.title)
+	var parkLocation = new google.maps.LatLng(destination.lat, destination.lng);
+	var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
+	var request = {
+		origin: hereLocation,
+			destination: parkLocation,
+			travelMode: google.maps.DirectionsTravelMode.WALKING
+		};
+
+		directionsService = new google.maps.DirectionsService();
+		directionsService.route(request, function(response, status) {
+		  if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+		  }
+		});
 }
 
 function getTime(){
@@ -525,5 +576,3 @@ getTime();
 			drink: 'Never'
 		}
 	]
-	
-	
