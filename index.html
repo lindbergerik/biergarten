@@ -15,6 +15,8 @@
 
   <!-- Font awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lobster" />
 	
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
@@ -25,8 +27,8 @@
 <ons-page>
   <header>
   <ons-toolbar modifier="transparent"> 
-    <div class="center">
-      BüirGártén
+    <div class="center" id="appName">
+        Bier Garten
     </div>
     </ons-toolbar>
   </header>
@@ -34,24 +36,34 @@
     <div class="page">
     <div id="mapDiv" class="gmap_div">
     </div>
-    <div class="content">
-      <ons-button modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
-      <ons-speed-dial position="bottom right" direction="up" :open.sync="spdOpen">
-        <ons-fab>
-          <i class="fas fa-angle-up"></i>
-        </ons-fab>
-        <ons-speed-dial-item onclick="showFavoritesDialog()">
-          <i class="fas fa-heart"></i>
-        </ons-speed-dial-item>
-        <ons-speed-dial-item onclick="showAboutDialog()">
-          <i class="fas fa-info"></i>
-        </ons-speed-dial-item>
-        <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Google+`)">
-          <ons-icon icon="md-google-plus"></ons-icon>
-        </ons-speed-dial-item>
-      </ons-speed-dial>
-      <div id="info"></div>
-    </div>
+    <ons-row id="content">
+      <ons-col width="75%">
+        <ons-button modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
+        <ons-list>
+          <ons-list-item>
+            <div class="left">
+              Show Favorites Only
+            </div>
+            <div class="right">
+              <ons-switch id="showFav"></ons-switch>
+            </div>
+          </ons-list-item>
+        </ons-list>
+      </ons-col>
+      <ons-col width="25%">
+        <ons-speed-dial position="bottom right" direction="up" :open.sync="spdOpen">
+          <ons-fab>
+            <i class="fas fa-angle-up"></i>
+          </ons-fab>
+          <ons-speed-dial-item onclick="showFavoritesDialog()">
+            <i class="fas fa-heart"></i>
+          </ons-speed-dial-item>
+          <ons-speed-dial-item onclick="showAboutDialog()">
+            <i class="fas fa-info"></i>
+          </ons-speed-dial-item>
+        </ons-speed-dial>
+      </ons-col>
+    </ons-row>
   </div>    
 </ons-page>
 
