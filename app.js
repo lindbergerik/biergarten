@@ -3,7 +3,8 @@ document.addEventListener('prechange', function(event) {
     .innerHTML = event.tabItem.getAttribute('label');
 });
 
-ons.createElement('dialog.html', { append: true })
+ons.createElement('favoritesDialog.html', { append: true })
+ons.createElement('aboutDialog.html', { append: true })
 
 var favObjs = [];
 document.getElementById('showFav').addEventListener('change', function(e) {
@@ -24,8 +25,8 @@ document.getElementById('showFav').addEventListener('change', function(e) {
 	}
 })
 
-var showTemplateDialog = function() {
-  var dialog = document.getElementById('my-dialog');
+var showFavoritesDialog = function() {
+  var dialog = document.getElementById('favorites');
   
   if (dialog) {
     dialog.show();
@@ -44,6 +45,30 @@ var showTemplateDialog = function() {
 	  add.appendChild(node2);
 	}
 };
+
+var showAboutDialog = function() {
+  var dialog = document.getElementById('about');
+    if (dialog) {
+    dialog.show();
+  	}
+  }
+
+var favObjs = [];
+document.getElementById('showFav').addEventListener('change', function(e) {
+	favObjs = [];
+	if (document.getElementById('showFav').checked == true){
+		for (var i = myFavs.length - 1; i >= 0; i--) {
+			for (var o = parks.length - 1; o >= 0; o--) {
+				if ( myFavs[i] === parks[o].name){
+					favObjs.push(parks[o])
+				}
+			}
+		}
+		initMap(favObjs);
+	} else{
+		initMap(parks);
+	}
+})
 
 var hideDialog = function(id) {
   document
@@ -188,11 +213,13 @@ function findDrinkLocation(){
 	}
 	console.log(closestPark.name);
 	var typeHere = document.getElementById("info");
-	if (closestPark.drink === "Always"){
-		typeHere.innerHTML = '<h1> The park closest to your location is ' + closestPark.name + '.</h1><p>Here you can always drink.</p><ons-button modifier=\"large\" onClick="calculateRoute(\'' + closestPark.name + '\')">Shorty I could take you there!</ons-button>';
-	} else if (closestPark.drink === "Between 07-00"){
-		typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+	if (closestPark.drink !== "Never"){
+		calculateRoute(closestPark.name)
 	}
+		// typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can always drink.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+	//} else if (closestPark.drink === "Between 07-00"){
+	//	calculateRoute(closestPark.name)		// typeHere.innerHTML = "<h1> The park closest to your location is " + closestPark.name + ".</h1><p>Here you can drink from 07:00 until 00:00.</p><ons-button modifier='large' onClick='calculateRoute()'>Shorty I could take you there!</ons-button>";
+	//}
 	
 }
 function calculateRoute(destPark){
@@ -265,7 +292,8 @@ function clearFavs(){
 	var add = document.getElementById('favList');
   	while (add.firstChild){
 	  	add.removeChild(add.firstChild);
-	  }
+	}
+	localStorage.setItem('favs', JSON.stringify(myFavs));
 }
 
 function getDirections(name){
