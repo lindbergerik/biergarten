@@ -8,11 +8,14 @@ ons.createElement('dialog.html', { append: true })
 var favObjs = [];
 document.getElementById('showFav').addEventListener('change', function(e) {
 	favObjs = [];
+	favorites = JSON.parse(localStorage.getItem('favs'));
+	console.log(favorites)
 	if (document.getElementById('showFav').checked == true){
-		for (var i = myFavs.length - 1; i >= 0; i--) {
+		for (var i = favorites.length - 1; i >= 0; i--) {
 			for (var o = parks.length - 1; o >= 0; o--) {
-				if ( myFavs[i] === parks[o].name){
+				if ( favorites[i] === parks[o].name){
 					favObjs.push(parks[o])
+					console.log('hallå ' + parks[o].name)
 				}
 			}
 		}
@@ -245,6 +248,7 @@ function addFav(name) {
 		myFavs.push(name);
 		console.log(myFavs);
 	}
+	localStorage.setItem('favs', JSON.stringify(myFavs));
 }
 
 function getTime(){
