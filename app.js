@@ -304,7 +304,11 @@ function getDirections(name){
 			destination = parks[i];
 		}
 	}
-
+	console.log(directionsDisplay + '----')
+	if (directionsDisplay !== null){
+		directionsDisplay.setMap(null)
+		directionsDisplay = null;
+	}
 	var directionsService = new google.maps.DirectionsService();
 	var directionsDisplay = new google.maps.DirectionsRenderer();
 
