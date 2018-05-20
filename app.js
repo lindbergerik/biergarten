@@ -36,14 +36,15 @@ var showFavoritesDialog = function() {
   	  while (add.firstChild){
 	  	add.removeChild(add.firstChild);
 	  }
-  for (var i = 0; i < myFavs.length; i++) {
-	  var node2 = document.createElement("p");
-	  var node = document.createElement("b");
-	  var textnode = document.createTextNode(myFavs[i]);
-	  node2.appendChild(node);
-	  node.appendChild(textnode);
-	  add.appendChild(node2);
-	}
+	  for (var i = 0; i < myFavs.length; i++) {
+	  	  var node = document.createElement("ons-list-item")
+		  var node2 = document.createElement("p");
+		  // var node = document.createElement("b");
+		  var textnode = document.createTextNode(myFavs[i]);
+		  node2.appendChild(node);
+		  node.appendChild(textnode);
+		  add.appendChild(node2);
+		}
 };
 
 var showAboutDialog = function() {

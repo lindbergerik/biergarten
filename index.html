@@ -43,12 +43,8 @@
         <ons-button modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
         <ons-list>
           <ons-list-item>
-            <div class="left">
-              Show Favorites Only
-            </div>
-            <div class="right">
-              <ons-switch id="showFav"></ons-switch>
-            </div>
+            <div class="left">Show Favorites Only</div>
+            <div class="right"><ons-switch id="showFav"></ons-switch></div>
           </ons-list-item>
         </ons-list>
       </ons-col>
@@ -71,10 +67,12 @@
 
 <template id="favoritesDialog.html">
   <ons-dialog id="favorites">
-    <div style="text-align: center; padding: 50px; width: 370px; height: 650px; position: relative;">
-      <h1>Favorites</h1>
-      <div id="favList"></div>
-      <div style="text-align: center;position: absolute; bottom: 0;padding: 30px;">
+    <div style="text-align: center; width: 370px; height: 650px; position: relative;">
+      <ons-toolbar><div class="toolbarText center">Favorite Parks</div></ons-toolbar>
+      <ons-list>
+        <div id="favList"></div>
+      </ons-list>
+      <div style="text-align: center; position: absolute; bottom: 0; padding: 30px;">
       <p>
         <ons-button modifier="large" class="button-margin" onclick="clearFavs()">Clear Favorites</ons-button>
         <ons-button modifier="large" class="button-margin" onclick="hideDialog('favorites')">Close</ons-button>
@@ -87,9 +85,13 @@
 <template id="aboutDialog.html">
   <ons-dialog id="about">
     <div style="text-align: center; padding: 50px; width: 370px; height: 650px; position: relative;">
-      <h1>About</h1>
-      <p>It's the time to drink. 
-
+      <ons-toolbar><div class="toolbarText center">About</div></ons-toolbar>
+      <p>It's summer, it's hot and you're looking to throw back some beers in the sun. Where do you go? The park of course!
+        Luckily, we've gathered all the parks in your vicinity.</p>
+      <span><p><img class="icon" src="img/drink.png"> Here you can always drink</p></span>
+      <span><p><img class="icon" src="img/drink_time.png"> Here you can drink between 07:00 - 00:00</p></span>
+      <span><p><img class="icon" src="img/drink_no.png"> Here drinking is prohibited</p></span>
+      <img class="image" src="img/beerapi_big.png">
       <div style="text-align: center;position: absolute; bottom: 0;padding: 30px;">  
       <p>
         <ons-button modifier="large" class="button-margin" onclick="hideDialog('about')">Close</ons-button>

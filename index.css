@@ -1,6 +1,5 @@
 header {
-	background-color: #00701a;
-	height: 10px;
+	/*empty header for Bier Garten logo*/
 }
 
 img {
@@ -9,6 +8,13 @@ img {
 
 i {
 	margin-top:18%;
+}
+
+.toolbarText {
+	font-size: 20px;
+	font-family: Proxima Nova;
+	font-weight: bold;
+	color: #ffb300;
 }
 
 #appName{
@@ -42,11 +48,6 @@ i {
 	font-family: Proxima Nova;
 }
 
-#header {
-	color: #007aff;
-	font-size: 24px;
-}
-
 .page {}
 
 #content {
@@ -59,12 +60,29 @@ i {
 	height: 82%;
 }
 
+.icon {
+	width: 30px;
+}
+
+.image {
+	/*Right now only for beerapi*/
+	width: 50%;
+}
 
 h1 {
+	font-size: 30px;
+	font-family: Proxima Nova;
+	font-weight: bold;
+	color: #ffb300;
+	text-align: center;
+}
+
+h2 {
 	color: 2d2d2d;
 	text-align: center;
 }
 
 p {
 	text-align: center;
+	font-size: 16px;
 }
