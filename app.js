@@ -37,7 +37,8 @@ var showFavoritesDialog = function() {
   	  while (add.firstChild){
 	  	add.removeChild(add.firstChild);
 	  }
-	  for (var i = 0; i < favorites.length; i++) {
+	  if (favorites) {
+	  	  for (var i = 0; i < favorites.length; i++) {
 	  	  var node = document.createElement("ons-list-item")
 		  var node2 = document.createElement("p");
 		  // var node = document.createElement("b");
@@ -46,6 +47,7 @@ var showFavoritesDialog = function() {
 		  node.appendChild(textnode);
 		  add.appendChild(node2);
 		}
+	  }
 };
 
 var showAboutDialog = function() {
