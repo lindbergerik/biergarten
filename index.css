@@ -20,9 +20,17 @@ i {
 	font-weight: bold;
 	color: #ffb300;
 }
+#clear{
+	font-family: Proxima Nova;
+	width: 100%;
+}
 
+#favorites{
+	font-family: Proxima Nova;
+}
 #close{
-	margin-top: 10px;
+	font-family: Proxima Nova;
+	width:100%;
 }
 
 #appName {

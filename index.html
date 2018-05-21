@@ -76,16 +76,10 @@
       <ons-list>
         <div id="favList"></div>
       </ons-list>
-      <div style="text-align: center; position: absolute; bottom: 0; padding: 30px;">
-      <p>
-        <ons-row>
-          <ons-col>
-            <ons-button modifier="large" class="left button-margin" onclick="clearFavs()">Clear favorites</ons-button>
-          </ons-col>
-          <ons-col>
+      <div style="text-align: center; position: absolute; bottom: 0; padding: 30px; width:100%;">
+      <p style="font-family: Proxima Nova;">
+            <ons-button id="clear" modifier="large" class="left button-margin" onclick="clearFavs()">Clear favorites</ons-button>
             <ons-button id="close" modifier="large" class="right button-margin" onclick="hideDialog('favorites')">Close page</ons-button>
-          </ons-col>
-        </ons-row>
       </p>
       </div>
     </div>
