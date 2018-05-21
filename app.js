@@ -31,16 +31,17 @@ var showFavoritesDialog = function() {
   if (dialog) {
     dialog.show();
   }
+  var favorites = JSON.parse(localStorage.getItem('favs'));
 
   var add = document.getElementById('favList');
   	  while (add.firstChild){
 	  	add.removeChild(add.firstChild);
 	  }
-	  for (var i = 0; i < myFavs.length; i++) {
+	  for (var i = 0; i < favorites.length; i++) {
 	  	  var node = document.createElement("ons-list-item")
 		  var node2 = document.createElement("p");
 		  // var node = document.createElement("b");
-		  var textnode = document.createTextNode(myFavs[i]);
+		  var textnode = document.createTextNode(favorites[i]);
 		  node2.appendChild(node);
 		  node.appendChild(textnode);
 		  add.appendChild(node2);
@@ -116,9 +117,9 @@ function initMap(parksArray) {
 			title: parksArray[i].name
 		})
 	markers[i].index = i;
-	contents[i] = '<h1>' + parksArray[i].name + '</h1><p> Drink here: '+parksArray[i].drink
-		+'</p><ons-row><ons-button id="addFav" onClick="addFav(\'' + parksArray[i].name + '\'); ons.notification.toast(\'Added to favorites! \', { timeout: 1000, animation: \'fall\' })" class="left button-margin" style="margin-right:5%;">Favorite</ons-button>'
-		+'<ons-button id="takeMe" onClick="calculateRoute(\'' + parksArray[i].name + '\')" class="right button-margin">Take me there</ons-button></ons-row>';
+	contents[i] = '<div style="text-align:center;"><h1 id="parkName">' + parksArray[i].name + '</h1><p> Drink here: '+parksArray[i].drink
+		+'</p><ons-row><ons-col><ons-button id="addFav" onClick="addFav(\'' + parksArray[i].name + '\'); ons.notification.toast(\'Added to favorites! \', { timeout: 1000, animation: \'fall\' })" class="left button-margin">Favorite</ons-button></ons-col>'
+		+'<ons-col><ons-button id="takeMe" onClick="calculateRoute(\'' + parksArray[i].name + '\')" class="right button-margin">Take me there</ons-button></ons-col></ons-row></div>';
 	
 	infoWindows[i] = new google.maps.InfoWindow({
 		content: contents[i],
@@ -148,7 +149,7 @@ function here () {
 		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		myPosition = new google.maps.Marker({
 			position: pos,
-			//lat: 59.315180, 
+			//lat: 59.315180, 	// koordinater för Björns trädgård for testing
 			//lng: 18.074029,
 			icon: './img/beerapi.png',
 			lat: position.coords.latitude,
@@ -179,39 +180,37 @@ function findDrinkLocation(){
 		if ( distance < closestDistance){
 			if (parksArray[i].drink !== 'Never'){
 				time = this.getTime();
-				console.log(time + ' **** ')
 				if( time >= 00 && time <= 07){
-					if (parkparksArrays[i].drink === "Always"){
+					if (parksArray[i].drink === "Always"){
 						closestDistance = distance;
 						closestPark = parksArray[i];
-						console.log('ny närmaste ' + closestPark.name)
+						//console.log('ny närmaste ' + closestPark.name)
 					}
 				}
 				else{
 					closestDistance = distance;
 					closestPark = parksArray[i];
-					console.log('ny närmaste ' + closestPark.name)
+					//console.log('ny närmaste ' + closestPark.name)
 				}
 			}
 		}
 	}
-	console.log(closestPark.name);
-	var typeHere = document.getElementById("info");
+	//console.log(closestPark.name);
 	if (closestPark.drink !== "Never"){
 		calculateRoute(closestPark.name)
 	}
 }
+
 var directionsService;
 var directionsDisplay;
 function calculateRoute(destPark){
-	console.log('hallååååå')
 	var destination;
 	for (var i = 0; i<parks.length; i++){
 		if (parks[i].name === destPark){
 			destination = parks[i];
 		}
 	}
-		// Clear past routes
+	// Clear past routes
 	if (directionsDisplay != null) {
 		directionsDisplay.setMap(null);
 		directionsDisplay = null;
@@ -251,7 +250,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 var myFavs = [];
 
 function addFav(name) {
-	console.log(name)
+	//console.log(name)
 	if (myFavs.length > 0) {
 		var exist = false;
 		for (var i = myFavs.length - 1; i >= 0; i--) {
@@ -263,11 +262,11 @@ function addFav(name) {
 			return
 		} else{
 			myFavs.push(name);
-			console.log(myFavs);
+			//console.log(myFavs);
 		}
 	} else{
 		myFavs.push(name);
-		console.log(myFavs);
+		//console.log(myFavs);
 	}
 	localStorage.setItem('favs', JSON.stringify(myFavs));
 }
@@ -282,14 +281,12 @@ function clearFavs(){
 }
 
 function getDirections(name){
-	console.log('hallååååå')
 	var destination;
 	for (var i = 0; i<parks.length; i++){
 		if (parks[i].name === name){
 			destination = parks[i];
 		}
 	}
-	console.log(directionsDisplay + '----')
 	if (directionsDisplay !== null){
 		directionsDisplay.setMap(null)
 		directionsDisplay = null;
@@ -302,7 +299,6 @@ function getDirections(name){
 		suppressMarkers: true
 	});
 
-	console.log(destination.name + ' to ' + myPosition.title)
 	var parkLocation = new google.maps.LatLng(destination.lat, destination.lng);
 	var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
 	var request = {
@@ -321,7 +317,6 @@ function getDirections(name){
 
 function getTime(){
 	var date = new Date();
-	console.log('date ' + date)
 	var hour = date.getHours(); 
 	return hour;
 }

@@ -10,16 +10,21 @@ i {
 	margin-top:18%;
 }
 
-.toolbarText {
+#favList{
+	margin-top: 13%;
+}
+
+.toolbarText, {
 	font-size: 20px;
-	font-family: Proxima Nova;
+	font-family: 'Lobster', cursive;
 	font-weight: bold;
 	color: #ffb300;
 }
-
-#appName{
+#close{
+	margin-left:20%;
+}
+#appName, #favoriteHeader, #aboutHeader, #parkName{
 	font-size: 30px;
-	font-family: Proxima Nova;
 	font-family: 'Lobster', cursive;
 	font-weight: bold;
 	color: #ffb300;
@@ -42,10 +47,11 @@ i {
 	background-color: #ffb300;
 	font-size: 25px;
 	font-family: Proxima Nova;
+	font-family: 'Lobster', cursive;
 }
 #addFav, #takeMe{
 	font-size:16px;
-	font-family: Proxima Nova;
+	font-family: 'Lobster', cursive;
 }
 
 .page {}
@@ -71,7 +77,7 @@ i {
 
 h1 {
 	font-size: 30px;
-	font-family: Proxima Nova;
+	font-family: 'Lobster', cursive;
 	font-weight: bold;
 	color: #ffb300;
 	text-align: center;
