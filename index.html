@@ -25,7 +25,9 @@
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
   <link rel="manifest" href="/manifest.json">
-	<link rel="stylesheet" href="index.css">
+
+
+	<link rel="stylesheet" href="/index.css">
 </head>
 
 <body>
@@ -42,7 +44,7 @@
     <div id="mapDiv" class="gmap_div"></div>
     <ons-row id="content">
       <ons-col width="75%">
-        <ons-button modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
+        <ons-button id="drink" modifier="large" onClick='findDrinkLocation();' class="button-margin">Drink</ons-button>
         <ons-list>
           <ons-list-item>
             <div class="left">Show Favorites Only</div>

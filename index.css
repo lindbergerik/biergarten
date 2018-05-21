@@ -21,14 +21,22 @@ i {
 	color: #ffb300;
 }
 #close{
-	margin-left:20%;
+	margin-top: 10px;
 }
-#appName, #favoriteHeader, #aboutHeader, #parkName{
+
+#appName {
 	font-size: 30px;
 	font-family: 'Lobster', cursive;
 	font-weight: bold;
 	color: #ffb300;
-	text-shadow: 2px 2px 0px #2d2d2d;
+	text-shadow: 2px 2px 0px #2d2d2d;	
+}
+
+#favoriteHeader, #aboutHeader, #parkName{
+	font-size: 30px;
+	font-family: 'Lobster', cursive;
+	font-weight: bold;
+	color: #ffb300;
 
 }
 
@@ -47,11 +55,19 @@ i {
 	background-color: #ffb300;
 	font-size: 25px;
 	font-family: Proxima Nova;
-	font-family: 'Lobster', cursive;
+	/*font-family: 'Lobster', cursive;*/
 }
+
+#drink {
+	background-color: #ffb300;
+	font-size: 25px;
+	font-family: 'Lobster', cursive;	
+}
+
 #addFav, #takeMe{
 	font-size:16px;
-	font-family: 'Lobster', cursive;
+	font-family: Proxima Nova;
+	/*font-family: 'Lobster', cursive;*/
 }
 
 .page {}
@@ -76,8 +92,8 @@ i {
 }
 
 h1 {
-	font-size: 30px;
-	font-family: 'Lobster', cursive;
+	font-size: 16px;
+	font-family: Proxima Nova;
 	font-weight: bold;
 	color: #ffb300;
 	text-align: center;
