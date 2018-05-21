@@ -20,6 +20,7 @@ i {
 	font-weight: bold;
 	color: #ffb300;
 }
+
 #close{
 	margin-top: 10px;
 }
@@ -55,7 +56,6 @@ i {
 	background-color: #ffb300;
 	font-size: 25px;
 	font-family: Proxima Nova;
-	/*font-family: 'Lobster', cursive;*/
 }
 
 #drink {
@@ -67,7 +67,6 @@ i {
 #addFav, #takeMe{
 	font-size:16px;
 	font-family: Proxima Nova;
-	/*font-family: 'Lobster', cursive;*/
 }
 
 .page {}
