@@ -10,7 +10,9 @@ var favObjs;
 document.getElementById('showFav').addEventListener('change', function(e) {
 	favObjs = [];
 	favorites = JSON.parse(localStorage.getItem('favs'));
-	console.log(favorites)
+	if (!favorites){
+		favorites = [];
+	}
 	if (document.getElementById('showFav').checked === true){
 		for (var i = favorites.length - 1; i >= 0; i--) {
 			for (var o = parks.length - 1; o >= 0; o--) {
@@ -161,13 +163,16 @@ function here () {
 		});
 		myPosition.setMap(map);
 	}, function() {
-		handleLocationError(true, infoWindow, map.getCenter());
+		handleLocationError(true, map.getCenter());
 		});
 	}
 }
 var closestPark;
 function findDrinkLocation(){
-	if (document.getElementById('showFav').checked == true){
+	console.log('hallå ' + document.getElementById('showFav').checked);
+	if (document.getElementById('showFav').checked === true){
+		console.log('i favvvvs')
+		console.log(favObjs);
 		parksArray = favObjs;
 	}
 	else{
@@ -197,9 +202,11 @@ function findDrinkLocation(){
 			}
 		}
 	}
-	//console.log(closestPark.name);
-	if (closestPark.drink !== "Never"){
-		calculateRoute(closestPark.name)
+	console.log(closestPark.name);
+	if (closestPark){
+		if (closestPark.drink !== "Never"){
+			calculateRoute(closestPark.name)
+		}
 	}
 }
 
@@ -279,6 +286,17 @@ function clearFavs(){
   	while (add.firstChild){
 	  	add.removeChild(add.firstChild);
 	}
+	if (document.getElementById('showFav').checked === true){
+		// Clear past routes
+		if (directionsDisplay != null) {
+			directionsDisplay.setMap(null);
+			directionsDisplay = null;
+		}
+		document.getElementById('showFav').checked = false;
+		favObjs = [];
+		closestPark = '';
+		initMap();
+	}
 	localStorage.setItem('favs', JSON.stringify(myFavs));
 }
 
@@ -305,16 +323,16 @@ function getDirections(name){
 	var hereLocation = new google.maps.LatLng(myPosition.lat, myPosition.lng);
 	var request = {
 		origin: hereLocation,
-			destination: parkLocation,
-			travelMode: google.maps.DirectionsTravelMode.WALKING
-		};
+		destination: parkLocation,
+		travelMode: google.maps.DirectionsTravelMode.WALKING
+	};
 
-		directionsService = new google.maps.DirectionsService();
-		directionsService.route(request, function(response, status) {
-		  if (status == google.maps.DirectionsStatus.OK) {
+	directionsService = new google.maps.DirectionsService();
+	directionsService.route(request, function(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
-		  }
-		});
+		}
+	});
 }
 
 function getTime(){
@@ -328,7 +346,7 @@ function goToHome(){
 
 getTime();
 	var parks = [
-		//sup 'Always'
+		//drink always
 		{
 			name: 'Kungsträdgården',
 			lat: 59.331375,
