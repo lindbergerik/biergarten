@@ -1,8 +1,6 @@
-   _    _    _    _     _    _    _    _    _    _  
-  / \  / \  / \  / \   / \  / \  / \  / \  / \  / \ 
- ( B )( i )( e )( r ) ( G )( a )( r )( t )( e )( n )
-  \_/  \_/  \_/  \_/   \_/  \_/  \_/  \_/  \_/  \_/ 
-
+.-..        .-.        .       
+|< ..-,.-.  |-..-. .-.-|-.-,.-.
+'-''`'-'    '-'`-`-'   '-`'-' '
 ## How to start
 Try out the app at: https://lindbergerik.github.io/biergarten/
 View and modify the source code by downloading the repository.
