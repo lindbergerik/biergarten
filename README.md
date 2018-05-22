@@ -1,10 +1,8 @@
+88""Yb 88 888888 88""Yb      dP""b8    db    88""Yb 888888 888888 88b 88 
+88__dP 88 88__   88__dP     dP   `"   dPYb   88__dP   88   88__   88Yb88 
+88""Yb 88 88""   88"Yb      Yb  "88  dP__Yb  88"Yb    88   88""   88 Y88 
+88oodP 88 888888 88  Yb      YboodP dP""""Yb 88  Yb   88   888888 88  Y8
 
-▄▄▄▄· ▪  ▄▄▄ .▄▄▄       ▄▄ •  ▄▄▄· ▄▄▄  ▄▄▄▄▄▄▄▄ . ▐ ▄ 
-▐█ ▀█▪██ ▀▄.▀·▀▄ █·    ▐█ ▀ ▪▐█ ▀█ ▀▄ █·•██  ▀▄.▀·•█▌▐█
-▐█▀▀█▄▐█·▐▀▀▪▄▐▀▀▄     ▄█ ▀█▄▄█▀▀█ ▐▀▀▄  ▐█.▪▐▀▀▪▄▐█▐▐▌
-██▄▪▐█▐█▌▐█▄▄▌▐█•█▌    ▐█▄▪▐█▐█ ▪▐▌▐█•█▌ ▐█▌·▐█▄▄▌██▐█▌
-·▀▀▀▀ ▀▀▀ ▀▀▀ .▀  ▀    ·▀▀▀▀  ▀  ▀ .▀  ▀ ▀▀▀  ▀▀▀ ▀▀ █▪
-                                              
 ## How to start
 Try out the app at: https://lindbergerik.github.io/biergarten/
 View and modify the source code by downloading the repository.
