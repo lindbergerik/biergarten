@@ -1,3 +1,7 @@
+
+╔╗ ┬┌─┐┬─┐  ╔═╗┌─┐┬─┐┌┬┐┌─┐┌┐┌
+╠╩╗│├┤ ├┬┘  ║ ╦├─┤├┬┘ │ ├┤ │││
+╚═╝┴└─┘┴└─  ╚═╝┴ ┴┴└─ ┴ └─┘┘└┘
                                                     
 ## How to start
 Try out the app at: https://lindbergerik.github.io/biergarten/
