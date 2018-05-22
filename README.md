@@ -1,8 +1,4 @@
-   ___  _           _____         __         
-  / _ )(_)__ ____  / ___/__ _____/ /____ ___ 
- / _  / / -_) __/ / (_ / _ `/ __/ __/ -_) _ \
-/____/_/\__/_/    \___/\_,_/_/  \__/\__/_//_/
-
+                                                    
 ## How to start
 Try out the app at: https://lindbergerik.github.io/biergarten/
 View and modify the source code by downloading the repository.
